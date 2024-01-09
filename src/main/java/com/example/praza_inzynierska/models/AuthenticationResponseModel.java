@@ -15,4 +15,5 @@ public class AuthenticationResponseModel {
     private String email;
     @NonNull
     private String token;
+    private NutritionConfig userNutritionConfig;
 }

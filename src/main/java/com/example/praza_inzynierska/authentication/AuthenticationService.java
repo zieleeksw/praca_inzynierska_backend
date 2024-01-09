@@ -44,6 +44,7 @@ public class AuthenticationService {
                 .username(user.get().getUsername())
                 .email(user.get().getEmail())
                 .token(jwtToken)
+                .userNutritionConfig(user.get().getUserNutritionConfig())
                 .build();
     }
 }
