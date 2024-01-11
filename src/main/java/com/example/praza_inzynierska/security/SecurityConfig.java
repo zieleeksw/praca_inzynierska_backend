@@ -25,8 +25,8 @@ public class SecurityConfig {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("api/auth/**").permitAll();
-                    auth.requestMatchers("api/user/usernames").permitAll();
-                    auth.requestMatchers("api/user/emails").permitAll();
+                    auth.requestMatchers("api/user/username/**").permitAll();
+                    auth.requestMatchers("api/user/email/**").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

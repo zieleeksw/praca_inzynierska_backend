@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,37 +18,23 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public ResponseEntity<List<String>> getAllLogins() {
+    public ResponseEntity<Boolean> isEmailAvailable(String email) {
         try {
-            List<String> logins = getLogins();
-            return new ResponseEntity<>(logins, HttpStatus.OK);
+            Optional<User> user = userRepository.findByEmail(email);
+            return new ResponseEntity<>(user.isEmpty(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    public ResponseEntity<List<String>> getAllEmails() {
+    public ResponseEntity<Boolean> isUsernameAvailable(String email) {
         try {
-            List<String> emails = getEmails();
-            return new ResponseEntity<>(emails, HttpStatus.OK);
+            Optional<User> user = userRepository.findByUsername(email);
+            return new ResponseEntity<>(user.isEmpty(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
-
-    private List<String> getLogins() {
-        List<User> users = userRepository.findAll();
-        return users.stream()
-                .map(User::getUsername)
-                .collect(Collectors.toList());
-    }
-
-    private List<String> getEmails() {
-        List<User> users = userRepository.findAll();
-        return users.stream()
-                .map(User::getEmail)
-                .collect(Collectors.toList());
     }
 }

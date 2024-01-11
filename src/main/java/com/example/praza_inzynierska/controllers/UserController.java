@@ -17,13 +17,13 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/usernames")
-    public ResponseEntity<List<String>> getAllUsers() {
-        return userService.getAllLogins();
+    @GetMapping("/email/{email}")
+    public ResponseEntity<Boolean> isEmailAvailable(@PathVariable String email) {
+        return userService.isEmailAvailable(email);
     }
 
-    @GetMapping("/emails")
-    public ResponseEntity<List<String>> getAllEmails() {
-        return userService.getAllEmails();
+    @GetMapping("/username/{username}")
+    public ResponseEntity<Boolean> isUsernameAvailable(@PathVariable String username) {
+        return userService.isUsernameAvailable(username);
     }
 }
