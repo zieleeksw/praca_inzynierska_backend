@@ -1,5 +1,6 @@
-package com.example.praza_inzynierska.models;
+package com.example.praza_inzynierska.response_models;
 
+import com.example.praza_inzynierska.models.NutritionConfig;
 import lombok.*;
 
 @Data

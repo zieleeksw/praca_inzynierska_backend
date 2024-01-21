@@ -4,7 +4,7 @@ package com.example.praza_inzynierska.controllers;
 import com.example.praza_inzynierska.authentication.AuthenticationRequest;
 import com.example.praza_inzynierska.authentication.AuthenticationService;
 import com.example.praza_inzynierska.authentication.RegisterRequest;
-import com.example.praza_inzynierska.models.AuthenticationResponseModel;
+import com.example.praza_inzynierska.response_models.AuthenticationResponseModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

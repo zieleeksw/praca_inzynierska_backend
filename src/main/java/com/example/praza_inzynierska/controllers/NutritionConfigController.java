@@ -15,8 +15,7 @@ public class NutritionConfigController {
 
     @PostMapping("/add/{userId}")
     public ResponseEntity<String> addUserNutritionConfig(@PathVariable long userId,
-                                                         @RequestBody
-                                                         NutritionConfig nutritionConfig) {
+                                                         @RequestBody NutritionConfig nutritionConfig) {
         return userNutritionConfigService.addUserNutritionConfig(userId, nutritionConfig);
 
     }

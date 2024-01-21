@@ -1,9 +1,9 @@
 package com.example.praza_inzynierska.authentication;
 
-import com.example.praza_inzynierska.models.AuthenticationResponseModel;
 import com.example.praza_inzynierska.models.Role;
 import com.example.praza_inzynierska.models.User;
 import com.example.praza_inzynierska.repositories.UserRepository;
+import com.example.praza_inzynierska.response_models.AuthenticationResponseModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
