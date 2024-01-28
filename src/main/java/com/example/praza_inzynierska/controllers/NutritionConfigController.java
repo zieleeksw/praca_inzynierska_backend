@@ -19,4 +19,9 @@ public class NutritionConfigController {
         return userNutritionConfigService.addUserNutritionConfig(userId, nutritionConfig);
 
     }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<NutritionConfig> fetchCaloriesNeeded(@PathVariable long userId) {
+        return userNutritionConfigService.fetchCaloriesNeeded(userId);
+    }
 }

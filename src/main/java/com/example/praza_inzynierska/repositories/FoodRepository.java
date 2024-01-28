@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface FoodRepository extends JpaRepository<Food, Long> {
 
-    List<Food> findByDate(String date);
+    List<Food> findByDateAndUserId(String date, Long userId);
 }

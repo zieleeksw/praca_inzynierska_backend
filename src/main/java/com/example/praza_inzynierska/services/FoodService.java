@@ -56,7 +56,7 @@ public class FoodService {
             if (userOptional.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
-            List<Food> food = foodRepository.findByDate(date);
+            List<Food> food = foodRepository.findByDateAndUserId(date, id);
             return new ResponseEntity<>(food, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

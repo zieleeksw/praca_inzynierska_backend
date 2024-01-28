@@ -29,4 +29,18 @@ public class UserNutritionConfigService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding user nutrition config.");
         }
     }
+
+    public ResponseEntity<NutritionConfig> fetchCaloriesNeeded(long userId) {
+        try {
+            Optional<User> user = userRepository.findById(userId);
+            if (user.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+            NutritionConfig config = userNutritionConfigRepository.findByUserId(userId);
+            return new ResponseEntity<>(config, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
