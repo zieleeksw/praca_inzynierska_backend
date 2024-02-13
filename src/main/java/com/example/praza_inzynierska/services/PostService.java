@@ -5,7 +5,6 @@ import com.example.praza_inzynierska.models.Post;
 import com.example.praza_inzynierska.models.User;
 import com.example.praza_inzynierska.repositories.PostRepository;
 import com.example.praza_inzynierska.repositories.UserRepository;
-import com.example.praza_inzynierska.request.models.FollowPostRequestModel;
 import com.example.praza_inzynierska.request.models.PostRequestModel;
 import com.example.praza_inzynierska.response_models.PostResponseModel;
 import lombok.RequiredArgsConstructor;
@@ -67,21 +66,21 @@ public class PostService {
         }
     }
 
-    public ResponseEntity<Void> follow(FollowPostRequestModel model) {
+    public ResponseEntity<Void> follow(Long userId, Long postId) {
         try {
-            Optional<Post> optional = postRepository.findById(model.getPostId());
+            Optional<Post> optional = postRepository.findById(postId);
             if (optional.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
-            Optional<User> user = userRepository.findById(model.getUserId());
+            Optional<User> user = userRepository.findById(userId);
             if (user.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
             Post post = optional.get();
-            if (post.getFollowers().contains(model.getUserId())) {
-                post.getFollowers().remove(model.getUserId());
+            if (post.getFollowers().contains(userId)) {
+                post.getFollowers().remove(userId);
             } else {
-                post.getFollowers().add(model.getUserId());
+                post.getFollowers().add(userId);
             }
             postRepository.save(post);
             return new ResponseEntity<>(HttpStatus.OK);

@@ -1,6 +1,5 @@
 package com.example.praza_inzynierska.controllers;
 
-import com.example.praza_inzynierska.request.models.FollowPostRequestModel;
 import com.example.praza_inzynierska.request.models.PostRequestModel;
 import com.example.praza_inzynierska.response_models.PostResponseModel;
 import com.example.praza_inzynierska.services.PostService;
@@ -23,9 +22,10 @@ public class PostController {
         return postService.addPost(model);
     }
 
-    @PostMapping("/follow")
-    public ResponseEntity<Void> followPost(@RequestBody FollowPostRequestModel model) {
-        return postService.follow(model);
+    @PostMapping("/follow/userId/{userId}/postId/{postId}")
+    public ResponseEntity<Void> followPost(@PathVariable Long userId,
+                                           @PathVariable Long postId) {
+        return postService.follow(userId, postId);
     }
 
     @DeleteMapping("/{id}")
