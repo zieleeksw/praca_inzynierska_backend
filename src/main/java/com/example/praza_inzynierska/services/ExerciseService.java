@@ -1,8 +1,12 @@
 package com.example.praza_inzynierska.services;
 
+import com.example.praza_inzynierska.models.BaseAppExercises;
 import com.example.praza_inzynierska.models.Exercise;
 import com.example.praza_inzynierska.models.User;
+import com.example.praza_inzynierska.models.UserExercise;
+import com.example.praza_inzynierska.repositories.BaseAppExercisesRepository;
 import com.example.praza_inzynierska.repositories.ExerciseRepository;
+import com.example.praza_inzynierska.repositories.UserExerciseRepository;
 import com.example.praza_inzynierska.repositories.UserRepository;
 import com.example.praza_inzynierska.request.models.ExerciseRequestModel;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +23,8 @@ import java.util.Optional;
 public class ExerciseService {
 
     private final ExerciseRepository exerciseRepository;
+    private final BaseAppExercisesRepository baseAppExercisesRepository;
+    private final UserExerciseRepository userExerciseRepository;
     private final UserRepository userRepository;
 
     public ResponseEntity<Void> addExercise(ExerciseRequestModel model) {
@@ -92,6 +99,19 @@ public class ExerciseService {
 
             exerciseRepository.deleteByDateAndName(date, name);
             return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity<List<String>> fetchAvailableExercises() {
+        try {
+            List<String> baseAppExercises = baseAppExercisesRepository.findAll().stream().map(BaseAppExercises::getName).toList();
+            List<String> result = new ArrayList<>(baseAppExercises);
+            List<String> userExercises = userExerciseRepository.findAll().stream().map(UserExercise::getName).toList();
+            result.addAll(userExercises);
+            return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

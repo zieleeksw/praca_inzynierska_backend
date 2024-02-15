@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BaseAppExercisesRepository extends JpaRepository<BaseAppExercises, Long> {
+    BaseAppExercises findByName(String name);
 }
