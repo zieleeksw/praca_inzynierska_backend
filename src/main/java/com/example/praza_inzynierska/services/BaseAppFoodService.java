@@ -25,13 +25,13 @@ public class BaseAppFoodService {
         }
     }
 
-    public ResponseEntity<BaseAppFood> findFoodByName(String name) {
-        try {
-            BaseAppFood food = baseAppFoodRepository.findByProductName(name);
-            return new ResponseEntity<>(food, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//    public ResponseEntity<BaseAppFood> findFoodByName(String name) {
+//        try {
+//            BaseAppFood food = baseAppFoodRepository.findByProductName(name);
+//            return new ResponseEntity<>(food, HttpStatus.OK);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 }

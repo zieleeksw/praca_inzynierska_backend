@@ -44,8 +44,8 @@ public class ExerciseController {
         return exerciseService.deleteExerciseByDateAndName(date, name);
     }
 
-    @GetMapping("/available")
-    public ResponseEntity<List<String>> fetchAvailableExercises() {
-        return exerciseService.fetchAvailableExercises();
+    @GetMapping("/available/{userId}")
+    public ResponseEntity<List<String>> fetchAvailableExercises(@PathVariable long userId) {
+        return exerciseService.fetchAvailableExercises(userId);
     }
 }

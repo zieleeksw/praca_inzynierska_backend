@@ -5,7 +5,6 @@ import com.example.praza_inzynierska.services.BaseAppFoodService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,8 +22,8 @@ public class BaseAppFoodController {
         return baseAppFoodService.fetchAllBaseAppFood();
     }
 
-    @GetMapping("/{name}")
-    public ResponseEntity<BaseAppFood> findFoodByName(@PathVariable("name") String name) {
-        return baseAppFoodService.findFoodByName(name);
-    }
+//    @GetMapping("/{name}")
+//    public ResponseEntity<BaseAppFood> findFoodByName(@PathVariable("name") String name) {
+//        return baseAppFoodService.findFoodByName(name);
+//    }
 }

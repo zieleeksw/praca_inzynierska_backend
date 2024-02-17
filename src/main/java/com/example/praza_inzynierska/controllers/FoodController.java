@@ -2,6 +2,7 @@ package com.example.praza_inzynierska.controllers;
 
 import com.example.praza_inzynierska.models.Food;
 import com.example.praza_inzynierska.request.models.FoodRequestModel;
+import com.example.praza_inzynierska.response_models.FoodResponse;
 import com.example.praza_inzynierska.services.FoodService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +23,23 @@ public class FoodController {
     }
 
     @GetMapping("/user/{id}/date/{date}")
-    public ResponseEntity<List<Food>> fetchCommentsFromPost(@PathVariable Long id,
-                                                            @PathVariable String date) {
+    public ResponseEntity<List<Food>> fetchFoodByDate(@PathVariable Long id,
+                                                      @PathVariable String date) {
         return foodService.fetchFoodByDate(id, date);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFood(@PathVariable Long id) {
         return foodService.deleteFoodById(id);
+    }
+
+    @GetMapping("/available/{userId}")
+    public ResponseEntity<List<FoodResponse>> fetchAvailableFood(@PathVariable Long userId) {
+        return foodService.fetchAvailableFood(userId);
+    }
+
+    @GetMapping("/{name}")
+    public ResponseEntity<FoodResponse> findFoodByName(@PathVariable("name") String name) {
+        return foodService.findFoodByName(name);
     }
 }

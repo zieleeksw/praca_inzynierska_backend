@@ -105,11 +105,11 @@ public class ExerciseService {
         }
     }
 
-    public ResponseEntity<List<String>> fetchAvailableExercises() {
+    public ResponseEntity<List<String>> fetchAvailableExercises(long userId) {
         try {
             List<String> baseAppExercises = baseAppExercisesRepository.findAll().stream().map(BaseAppExercises::getName).toList();
             List<String> result = new ArrayList<>(baseAppExercises);
-            List<String> userExercises = userExerciseRepository.findAll().stream().map(UserExercise::getName).toList();
+            List<String> userExercises = userExerciseRepository.findByUserId(userId).stream().map(UserExercise::getName).toList();
             result.addAll(userExercises);
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {

@@ -18,7 +18,7 @@ public class UserExercisesController {
     private final UserExercisesService userExercisesService;
 
     @GetMapping("/{userId}/exercises")
-    public ResponseEntity<List<UserExercise>> deleteUserExercises(@PathVariable Long userId) {
+    public ResponseEntity<List<UserExercise>> fetchUserExercises(@PathVariable Long userId) {
         return userExercisesService.fetchUserExercises(userId);
     }
 
@@ -28,7 +28,7 @@ public class UserExercisesController {
     }
 
     @DeleteMapping("/{userId}/exercises")
-    public ResponseEntity<Void> fetchUserExercises(@PathVariable Long userId) {
+    public ResponseEntity<Void> deleteUserExercise(@PathVariable Long userId) {
         return userExercisesService.deleteUserExercise(userId);
     }
 }
