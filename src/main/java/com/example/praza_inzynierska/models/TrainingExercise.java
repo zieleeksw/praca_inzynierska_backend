@@ -1,7 +1,6 @@
 package com.example.praza_inzynierska.models;
 
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,15 +10,15 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Exercise {
+public class TrainingExercise {
     @Id
     @GeneratedValue
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
     private String name;
-    private String date;
     private int repetition;
     private double weight;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "training_id")
+    private Training training;
 }

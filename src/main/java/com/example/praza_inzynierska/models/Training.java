@@ -3,6 +3,8 @@ package com.example.praza_inzynierska.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -18,5 +20,6 @@ public class Training {
     @JoinColumn(name = "user_id")
     private User user;
     private String name;
-    private String date;
+    @OneToMany(mappedBy = "training")
+    private List<TrainingExercise> exercises;
 }

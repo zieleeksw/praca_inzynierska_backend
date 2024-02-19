@@ -21,7 +21,7 @@ public class UserFoodController {
         return userFoodService.fetchUserFood(userId);
     }
 
-    @PostMapping("/{userId}/food")
+    @PostMapping("/food")
     public ResponseEntity<Boolean> addUserFood(@RequestBody UserFoodRequest userFoodRequest) {
         return userFoodService.addUserFood(userFoodRequest);
     }

@@ -22,13 +22,13 @@ public class UserExercisesController {
         return userExercisesService.fetchUserExercises(userId);
     }
 
-    @PostMapping("/{userId}/exercises")
+    @PostMapping("/exercises")
     public ResponseEntity<Boolean> addUserExercise(@RequestBody UserExerciseRequest userExerciseRequest) {
         return userExercisesService.addUserExercise(userExerciseRequest);
     }
 
-    @DeleteMapping("/{userId}/exercises")
-    public ResponseEntity<Void> deleteUserExercise(@PathVariable Long userId) {
-        return userExercisesService.deleteUserExercise(userId);
+    @DeleteMapping("/{exerciseId}/exercises")
+    public ResponseEntity<Void> deleteUserExercise(@PathVariable Long exerciseId) {
+        return userExercisesService.deleteUserExercise(exerciseId);
     }
 }

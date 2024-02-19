@@ -14,7 +14,5 @@ public class BaseAppExercises {
     @Id
     @GeneratedValue
     private long id;
-    @Enumerated(EnumType.STRING)
-    private BodyPartType bodyPartType;
     String name;
 }

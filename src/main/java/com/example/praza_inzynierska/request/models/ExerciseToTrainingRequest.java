@@ -7,8 +7,10 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TrainingRequestModel {
-
-    private long userId;
+public class ExerciseToTrainingRequest {
+    private Long trainingId;
     private String name;
+    private int repetition;
+    private double weight;
+
 }
