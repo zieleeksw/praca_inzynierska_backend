@@ -14,6 +14,8 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
 
     List<Exercise> findByDateAndUserId(String date, long userId);
 
+    List<Exercise> findByUserIdAndNameAndDateContaining(Long userId, String name, String datePart);
+
     @Transactional
     @Modifying
     @Query("DELETE FROM Exercise e WHERE e.date = :date AND e.name = :name")

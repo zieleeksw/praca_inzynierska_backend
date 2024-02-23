@@ -31,5 +31,4 @@ public class BodyDimensionsController {
     public ResponseEntity<Void> deleteDimensions(@PathVariable Long id) {
         return dimensionsService.deleteDimensionsById(id);
     }
-
 }

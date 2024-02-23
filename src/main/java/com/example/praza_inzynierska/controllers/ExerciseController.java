@@ -48,4 +48,11 @@ public class ExerciseController {
     public ResponseEntity<List<String>> fetchAvailableExercises(@PathVariable long userId) {
         return exerciseService.fetchAvailableExercises(userId);
     }
+
+    @GetMapping("/user/{userId}/chart/{date}/{name}")
+    public ResponseEntity<List<Exercise>> fetchChartExercises(@PathVariable Long userId,
+                                                              @PathVariable String date,
+                                                              @PathVariable String name) {
+        return exerciseService.fetchChartExercises(userId, date, name);
+    }
 }

@@ -1,7 +1,6 @@
 package com.example.praza_inzynierska.models;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -16,7 +16,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -96,7 +98,6 @@ public class ExerciseService {
 
     public ResponseEntity<Void> deleteExerciseByDateAndName(String date, String name) {
         try {
-
             exerciseRepository.deleteByDateAndName(date, name);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
@@ -112,6 +113,37 @@ public class ExerciseService {
             List<String> userExercises = userExerciseRepository.findByUserId(userId).stream().map(UserExercise::getName).toList();
             result.addAll(userExercises);
             return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity<List<Exercise>> fetchChartExercises(Long userId, String date, String name) {
+        try {
+            Optional<User> userOptional = userRepository.findById(userId);
+            if (userOptional.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            List<Exercise> targetMonthExercises  = exerciseRepository.findByUserIdAndNameAndDateContaining(userId, name, date);
+
+
+            List<Exercise> averages = targetMonthExercises.stream()
+                    .collect(Collectors.groupingBy(Exercise::getDate))
+                    .entrySet().stream()
+                    .map(entry -> {
+                        List<Exercise> exercises = entry.getValue();
+                        double avgRepetition = exercises.stream().mapToInt(Exercise::getRepetition).average().orElse(0);
+                        double avgWeight = exercises.stream().mapToDouble(Exercise::getWeight).average().orElse(0);
+                        return Exercise.builder()
+                                .date(entry.getKey())
+                                .name(name)
+                                .repetition((int) avgRepetition)
+                                .weight(avgWeight)
+                                .build();
+                    }).collect(Collectors.toList());
+            return new ResponseEntity<>(averages, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
