@@ -8,4 +8,6 @@ import java.util.List;
 public interface FoodRepository extends JpaRepository<Food, Long> {
 
     List<Food> findByDateAndUserId(String date, Long userId);
+
+    List<Food> findByUserIdAndDateContaining(Long userId, String date);
 }

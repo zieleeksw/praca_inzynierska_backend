@@ -1,5 +1,6 @@
 package com.example.praza_inzynierska.controllers;
 
+import com.example.praza_inzynierska.models.Exercise;
 import com.example.praza_inzynierska.models.Food;
 import com.example.praza_inzynierska.request.models.FoodRequestModel;
 import com.example.praza_inzynierska.response_models.FoodResponse;
@@ -41,5 +42,11 @@ public class FoodController {
     @GetMapping("/{name}")
     public ResponseEntity<FoodResponse> findFoodByName(@PathVariable("name") String name) {
         return foodService.findFoodByName(name);
+    }
+
+    @GetMapping("/user/{userId}/chart/{date}")
+    public ResponseEntity<List<Food>> fetchChartFood(@PathVariable Long userId,
+                                                              @PathVariable String date) {
+        return foodService.fetchChartFood(userId, date);
     }
 }

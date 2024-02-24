@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -115,5 +116,41 @@ public class FoodService {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    public ResponseEntity<List<Food>> fetchChartFood(Long userId, String date) {
+        try {
+            Optional<User> userOptional = userRepository.findById(userId);
+            if (userOptional.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+
+            List<Food> targetMonthFood = foodRepository.findByUserIdAndDateContaining(userId, date);
+
+            List<Food> dailySums = targetMonthFood.stream()
+                    .collect(Collectors.groupingBy(Food::getDate))
+                    .entrySet().stream()
+                    .map(entry -> {
+                        List<Food> dayFoods = entry.getValue();
+                        int sumKcal = dayFoods.stream().mapToInt(Food::getKcal).sum();
+                        int sumProtein = dayFoods.stream().mapToInt(Food::getProteins).sum();
+                        int sumFat = dayFoods.stream().mapToInt(Food::getFat).sum();
+                        int sumCarbs = dayFoods.stream().mapToInt(Food::getCarbs).sum();
+
+                        return Food.builder()
+                                .date(entry.getKey())
+                                .kcal(sumKcal)
+                                .proteins(sumProtein)
+                                .fat(sumFat)
+                                .carbs(sumCarbs)
+                                .build();
+                    })
+                    .collect(Collectors.toList());
+
+            return new ResponseEntity<>(dailySums, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
