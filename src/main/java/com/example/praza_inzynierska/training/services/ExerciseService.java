@@ -124,10 +124,7 @@ public class ExerciseService {
             if (userOptional.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
-
             List<Exercise> targetMonthExercises = exerciseRepository.findByUserIdAndNameAndDateContaining(userId, name, date);
-
-
             List<Exercise> averages = targetMonthExercises.stream()
                     .collect(Collectors.groupingBy(Exercise::getDate))
                     .entrySet().stream()

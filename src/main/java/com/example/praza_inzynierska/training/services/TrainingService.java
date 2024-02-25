@@ -85,10 +85,7 @@ public class TrainingService {
     public ResponseEntity<Training> fetchTrainingById(Long trainingId) {
         try {
             Optional<Training> optional = trainingRepository.findById(trainingId);
-            if (optional.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-            return new ResponseEntity<>(optional.get(), HttpStatus.OK);
+            return optional.map(training -> new ResponseEntity<>(training, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -136,7 +133,6 @@ public class TrainingService {
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-
         }
     }
 
