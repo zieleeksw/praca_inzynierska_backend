@@ -1,6 +1,6 @@
 package com.example.praza_inzynierska.authentication;
 
-import com.example.praza_inzynierska.models.User;
+import com.example.praza_inzynierska.user.models.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
