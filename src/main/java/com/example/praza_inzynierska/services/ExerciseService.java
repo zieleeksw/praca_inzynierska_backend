@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -126,7 +125,7 @@ public class ExerciseService {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
-            List<Exercise> targetMonthExercises  = exerciseRepository.findByUserIdAndNameAndDateContaining(userId, name, date);
+            List<Exercise> targetMonthExercises = exerciseRepository.findByUserIdAndNameAndDateContaining(userId, name, date);
 
 
             List<Exercise> averages = targetMonthExercises.stream()

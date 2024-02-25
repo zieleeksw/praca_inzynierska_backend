@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 
 @Service
 @RequiredArgsConstructor
@@ -42,5 +43,36 @@ public class UserNutritionConfigService {
             e.printStackTrace();
         }
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    public ResponseEntity<Void> changeActivityLevel(long userId, String activityLevel) {
+        return changeUserNutritionConfig(userId, config -> config.setActivityLevel(activityLevel));
+    }
+
+    public ResponseEntity<Void> changeCurrentWeight(long userId, Double currentWeight) {
+        return changeUserNutritionConfig(userId, config -> config.setCurrentWeight(currentWeight));
+    }
+
+    public ResponseEntity<Void> changeTargetWeight(long userId, Double targetWeight) {
+        return changeUserNutritionConfig(userId, config -> config.setTargetWeight(targetWeight));
+    }
+
+    private ResponseEntity<Void> changeUserNutritionConfig(long userId, Consumer<NutritionConfig> configUpdater) {
+        try {
+            Optional<User> userOptional = userRepository.findById(userId);
+            if (userOptional.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            NutritionConfig config = userNutritionConfigRepository.findByUserId(userId);
+            if (config == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            configUpdater.accept(config);
+            userNutritionConfigRepository.save(config);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

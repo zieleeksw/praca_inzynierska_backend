@@ -22,7 +22,7 @@ public class FoodResponse {
     public FoodResponse(BaseAppFood baseAppFood) {
         this.productName = baseAppFood.getProductName();
         this.kcal = baseAppFood.getKcal();
-        this.fat = baseAppFood.getKcal();
+        this.fat = baseAppFood.getFat();
         this.carbs = baseAppFood.getCarbs();
         this.proteins = baseAppFood.getProteins();
     }
@@ -30,7 +30,7 @@ public class FoodResponse {
     public FoodResponse(UserFood userFood) {
         this.productName = userFood.getProductName();
         this.kcal = userFood.getKcal();
-        this.fat = userFood.getKcal();
+        this.fat = userFood.getFat();
         this.carbs = userFood.getCarbs();
         this.proteins = userFood.getProteins();
     }

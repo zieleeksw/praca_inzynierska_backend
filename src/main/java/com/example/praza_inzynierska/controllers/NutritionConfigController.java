@@ -24,4 +24,22 @@ public class NutritionConfigController {
     public ResponseEntity<NutritionConfig> fetchCaloriesNeeded(@PathVariable long userId) {
         return userNutritionConfigService.fetchCaloriesNeeded(userId);
     }
+
+    @PostMapping("/{userId}/activity_level/{activity_level}")
+    public ResponseEntity<Void> changeActivityLevel(@PathVariable("userId") long userId,
+                                                    @PathVariable("activity_level") String activityLevel) {
+        return userNutritionConfigService.changeActivityLevel(userId, activityLevel);
+    }
+
+    @PostMapping("/{userId}/current_weight/{current_weight}")
+    public ResponseEntity<Void> changeCurrentWeight(@PathVariable("userId") long userId,
+                                                    @PathVariable("current_weight") Double currentWeight) {
+        return userNutritionConfigService.changeCurrentWeight(userId, currentWeight);
+    }
+
+    @PostMapping("/{userId}/target_weight/{target_weight}")
+    public ResponseEntity<Void> changeTargetWeight(@PathVariable("userId") long userId,
+                                                   @PathVariable("target_weight") Double targetWeight) {
+        return userNutritionConfigService.changeTargetWeight(userId, targetWeight);
+    }
 }

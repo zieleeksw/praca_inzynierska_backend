@@ -45,7 +45,7 @@ public class BmrCalculator {
         switch (activityLevel) {
             case "Very low" -> bmr = bmr * 1.22;
             case "Low" -> bmr = bmr * 1.375;
-            case "Moderately" -> bmr = bmr * 1.55;
+            case "Average" -> bmr = bmr * 1.55;
             case "Active" -> bmr = bmr * 1.725;
             case "Very active" -> bmr = bmr * 1.9;
         }
