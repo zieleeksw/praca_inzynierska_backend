@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.example.praza_inzynierska.food.FoodServiceTest
+-------------------------------------------------------------------------------
+Tests run: 18, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.237 s -- in com.example.praza_inzynierska.food.FoodServiceTest

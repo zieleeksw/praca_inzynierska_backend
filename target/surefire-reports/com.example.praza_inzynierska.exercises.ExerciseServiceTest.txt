@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.example.praza_inzynierska.exercises.ExerciseServiceTest
+-------------------------------------------------------------------------------
+Tests run: 19, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.849 s -- in com.example.praza_inzynierska.exercises.ExerciseServiceTest
