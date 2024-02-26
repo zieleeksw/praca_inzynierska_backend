@@ -295,6 +295,61 @@ public class TrainingServiceTest {
     public void testAddTrainingBlockToDayException() {
         when(trainingRepository.findById(anyLong())).thenThrow(new RuntimeException());
         ResponseEntity<Void> response = trainingService.addTrainingBlockToDay(addTrainingBlockRequest);
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
+    @Test
+    public void deleteExerciseFromTraining_ExerciseExists_ShouldDeleteAndReturnOk() {
+        Long exerciseId = 1L;
+        TrainingExercise trainingExercise = new TrainingExercise();
+        when(trainingExerciseRepository.findById(exerciseId)).thenReturn(Optional.of(trainingExercise));
+
+        ResponseEntity<Void> response = trainingService.deleteExerciseFromTraining(exerciseId);
+
+        verify(trainingExerciseRepository, times(1)).findById(exerciseId);
+        verify(trainingRepository, times(1)).deleteById(exerciseId);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    public void deleteExerciseFromTraining_ExerciseDoesNotExist_ShouldReturnInternalServerError() {
+        Long exerciseId = 1L;
+        when(trainingExerciseRepository.findById(exerciseId)).thenReturn(Optional.empty());
+
+        ResponseEntity<Void> response = trainingService.deleteExerciseFromTraining(exerciseId);
+
+        verify(trainingExerciseRepository, times(1)).findById(exerciseId);
+        verify(trainingRepository, never()).deleteById(anyLong());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
+    @Test
+    public void deleteExerciseFromTraining_ExceptionOccurs_ShouldReturnInternalServerError() {
+        Long exerciseId = 1L;
+        when(trainingExerciseRepository.findById(exerciseId)).thenThrow(new RuntimeException());
+
+        ResponseEntity<Void> response = trainingService.deleteExerciseFromTraining(exerciseId);
+
+        verify(trainingExerciseRepository, times(1)).findById(exerciseId);
+        verify(trainingRepository, never()).deleteById(anyLong());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
+    @Test
+    public void addTrainingBlockToDay_BothTrainingAndUserExist_ShouldProcessExercisesAndReturnOk() {
+        AddTrainingBlockRequest request = new AddTrainingBlockRequest();
+        request.setTrainingId(1L);
+        request.setUserId(1L);
+        request.setDate("2024-02-26");
+        Training training = new Training();
+        training.setExercises(List.of(new TrainingExercise(1L, "Push-up", 10, 12.6, new Training())));
+        User user = new User();
+        when(trainingRepository.findById(request.getTrainingId())).thenReturn(Optional.of(training));
+        when(userRepository.findById(request.getUserId())).thenReturn(Optional.of(user));
+        ResponseEntity<Void> response = trainingService.addTrainingBlockToDay(request);
+        verify(trainingRepository, times(1)).findById(request.getTrainingId());
+        verify(userRepository, times(1)).findById(request.getUserId());
+        verify(exerciseRepository, times(1)).save(any(Exercise.class));
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 }
