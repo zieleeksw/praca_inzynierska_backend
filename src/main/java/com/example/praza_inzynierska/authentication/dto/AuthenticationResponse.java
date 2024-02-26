@@ -1,4 +1,4 @@
-package com.example.praza_inzynierska.authentication;
+package com.example.praza_inzynierska.authentication.dto;
 
 import com.example.praza_inzynierska.user.models.NutritionConfig;
 import lombok.*;
@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AuthenticationResponseModel {
+public class AuthenticationResponse {
 
     private long id;
     @NonNull

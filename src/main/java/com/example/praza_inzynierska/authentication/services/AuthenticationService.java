@@ -1,5 +1,9 @@
-package com.example.praza_inzynierska.authentication;
+package com.example.praza_inzynierska.authentication.services;
 
+import com.example.praza_inzynierska.authentication.models.UserAuth;
+import com.example.praza_inzynierska.authentication.dto.AuthenticationRequest;
+import com.example.praza_inzynierska.authentication.dto.AuthenticationResponse;
+import com.example.praza_inzynierska.authentication.dto.RegisterRequest;
 import com.example.praza_inzynierska.user.models.Role;
 import com.example.praza_inzynierska.user.models.User;
 import com.example.praza_inzynierska.user.repositories.UserRepository;
@@ -31,14 +35,14 @@ public class AuthenticationService {
         return "Registered successfully";
     }
 
-    public AuthenticationResponseModel authenticate(AuthenticationRequest request) {
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
         Optional<User> user = repository.findByEmail(request.getEmail());
         Optional<UserAuth> userAuth = Optional.of(new UserAuth(user.get()));
         String jwtToken = jwtService.generateToken(userAuth.get());
-        return AuthenticationResponseModel.builder()
+        return AuthenticationResponse.builder()
                 .id(user.get().getId())
                 .username(user.get().getUsername())
                 .email(user.get().getEmail())

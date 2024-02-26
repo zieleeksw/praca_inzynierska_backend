@@ -1,6 +1,6 @@
 package com.example.praza_inzynierska.security;
 
-import com.example.praza_inzynierska.authentication.JwtAuthenticationFilter;
+import com.example.praza_inzynierska.authentication.bean.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

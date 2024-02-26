@@ -1,5 +1,6 @@
-package com.example.praza_inzynierska.authentication;
+package com.example.praza_inzynierska.authentication.bean;
 
+import com.example.praza_inzynierska.authentication.models.UserAuth;
 import com.example.praza_inzynierska.user.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

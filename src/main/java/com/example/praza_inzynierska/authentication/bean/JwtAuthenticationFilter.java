@@ -1,5 +1,6 @@
-package com.example.praza_inzynierska.authentication;
+package com.example.praza_inzynierska.authentication.bean;
 
+import com.example.praza_inzynierska.authentication.services.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

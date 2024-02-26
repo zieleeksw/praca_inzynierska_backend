@@ -1,6 +1,10 @@
-package com.example.praza_inzynierska.authentication;
+package com.example.praza_inzynierska.authentication.controllers;
 
 
+import com.example.praza_inzynierska.authentication.dto.AuthenticationRequest;
+import com.example.praza_inzynierska.authentication.dto.AuthenticationResponse;
+import com.example.praza_inzynierska.authentication.services.AuthenticationService;
+import com.example.praza_inzynierska.authentication.dto.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +25,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponseModel> authenticate(@RequestBody AuthenticationRequest request) {
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(service.authenticate(request));
     }
 }

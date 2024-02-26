@@ -1,4 +1,4 @@
-package com.example.praza_inzynierska.authentication;
+package com.example.praza_inzynierska.authentication.services;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

@@ -1,4 +1,4 @@
-package com.example.praza_inzynierska.authentication;
+package com.example.praza_inzynierska.authentication.models;
 
 import com.example.praza_inzynierska.user.models.User;
 import lombok.RequiredArgsConstructor;
